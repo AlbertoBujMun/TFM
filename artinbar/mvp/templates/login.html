@@ -1,0 +1,46 @@
+{% extends "common/masterpage.html" %}
+
+{% block title %}Ingresa al Sistema{% endblock %}
+
+{% block content %}
+{% load widget_tweaks %}
+
+<div class="colored-section bg-inverse" style="z-index: -1;">
+    <section class="container fullPage" style="z-index: 1;">
+        <br>
+        <h2>Inicia sesión:</h2>
+
+        <form id='formulario' method="post" class="form-group" action='/login'>
+            {% with WIDGET_ERROR_CLASS='form-control-danger' %}
+            {% csrf_token %}
+
+            <label for="{{ formulario.username.id_for_label }}">Nombre de usuario:</label>
+            <input name="username" id="{{ formulario.username.id_for_label }}" class="form-control"></input>
+            {{ formulario.username.errors }}
+            <br>
+
+            <label for="{{ formulario.password.id_for_label }}">Contraseña:</label>
+            <input type="password" name="password" id="{{ formulario.password.id_for_label }}" class="form-control"></input>
+            {{ formulario.password.errors }}
+            {% if formulario.non_field_errors %}
+                {% for error in formulario.non_field_errors %}
+                    {{error}}
+                {% endfor %}
+            {% endif %}
+            <br>
+            
+            <div class="text-center">
+                <input type="submit" class="btn btn-round btn-primary" value="Ingresar" />
+            </div>
+
+            {% endwith %}
+        </form>
+
+
+    </section>
+</div>
+
+<div class="fixed-bottom" style="z-index: 0;">
+    <img src="../static/img/crowd.png" class="img-fluid" />
+</div>    
+{% endblock %}

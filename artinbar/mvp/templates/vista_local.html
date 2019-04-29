@@ -1,0 +1,140 @@
+{% extends "common/masterpage.html" %}
+
+{% block title %}Perfil{% endblock %}
+{% block content %}
+<script>
+    var map;
+    var marker;
+    function initialize() {
+        var myLatlng = new google.maps.LatLng({{geolocalizacion.latitude}},{{geolocalizacion.longitude}});
+        var mapOptions = {
+          zoom: 15,
+          center: myLatlng
+        }
+      map = new google.maps.Map(document.getElementById("map"), mapOptions);
+      createMarker(myLatlng);
+    }
+    google.maps.event.addDomListener(window, "load", initialize);
+
+        function createMarker(latlng) {
+           // If the user makes another search you must clear the marker variable
+           if(marker != undefined && marker != ''){
+            marker.setMap(null);
+            marker = '';
+           }
+           marker = new google.maps.Marker({
+              map: map,
+              position: latlng
+           });
+        }
+
+
+
+
+    </script>
+<div class="colored-section bg-inverse">
+    <div class="jumbotron jumbotron-fluid profileBanner" style="background-image: url('https://i.pinimg.com/564x/01/fd/3f/01fd3f197a7cdfe7c8ffd3d867868ed3.jpg');">
+        <div class="container profileTitle">
+            <h1 class="display-6" style="margin-bottom: 0px">{{local.name}}</h1>
+        </div>
+    </div>
+    <div class="profileData bg-inverse">
+        <ul class="nav nav-pills nav-pills-primary" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" href="#home" role="tab" data-toggle="tab">Resumen</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#photos" role="tab" data-toggle="tab">Fotos</a>
+            </li>
+            {% if not perms.mvp.venue %}
+            <li class="nav-item">
+                <a class="nav-link" href="#contact" role="tab" data-toggle="tab">Contacto</a>
+            </li>
+            {% endif %}
+        </ul>
+        <br>
+        <div class="tab-content container">
+            <div class="tab-pane fade active show" id="home" role="tabpanel">
+                    <div class="card">
+                            <div class="card-block">
+                            <div class="row">
+                            <div class="col-3 w-25 p-3 vcenter" >
+                            {% if not local.logo %}
+                                <img src="https://freakuotes.com/users/avatars/default.jpg" alt="Logo" style="max-height: 100px"class="rounded-circle img-fluid" />
+                            {% else %}
+                                <img src="{{ MEDIA_URL }}{{local.logo}}" alt="Logo" style="max-height: 100px"class="rounded-circle img-fluid" />
+                            {% endif %}
+                            </div>
+                            <div class="col-6 vcenter">
+                                <div class="row">
+                                <h2>{{local.name}}</h2>
+                                </div>
+                                <div class="row">
+                                <p>
+                                        {{local.description}}
+                                    </p>
+                                </div>
+                                   
+                            </div>
+                            
+                          
+                            </div>
+                            <div classs="row">
+                                    <div class="col-md-4 vcenter">
+                                    <p><b>
+                                        Aforo: {{local.capacity}}
+                                    </b>
+                                    </p>
+                                    </div>
+                                    <div class="col-md-4 vcenter">
+                                            <p><b>
+                                               {{local.email}}
+                                            </b>
+                                            </p>
+                                            </div>
+                        </div>
+                            </div>
+                        </div>
+                        <br>
+
+                <div class="card">
+                    <div class="card-block">
+                             <h4>
+                                {{local.address}}
+                             </h4>
+                            <br>
+                            <div class="map-container"/>
+                            <div class="map" id="map"></div>
+                            </div>
+                     </div>
+                </div>
+
+                
+                
+                
+            </div>
+            <div class="tab-pane fade" id="photos" role="tabpanel">
+                {% for foto in fotos %}
+                    <img class="rounded img-fluid" src="{{ MEDIA_URL }}{{foto.url}}" />
+                    <br><br>
+                {% endfor %}
+            </div>
+            {% if not perms.mvp.venue %}
+            <div class="tab-pane fade" id="contact" role="tabpanel">
+                <p>¡Contacta con {{local.name}} para iniciar el chat y preparar un nuevo evento!</p>
+                <a href="/chat/{{local.id}}" class="btn btn-primary btn-lg">Contactar ahora</a>
+            </div>
+            {% endif %}
+            {% if user.id == local.id %}
+                <br></br>
+                <a href="/editar_local" class="btn btn-primary btn-lg">Editar</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+<script async defer
+src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAdGla1CET4Qscd4i_tnk7o1JTosQQvVZk&&callback=initialize">
+</script>
+
+
+{% endblock %}

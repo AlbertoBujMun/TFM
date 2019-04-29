@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+{% load static%}
+<head>
+    <meta charset="utf-8">
+    <title>Conversación con {{contact.name}}</title>
+    <link rel="icon" href="{% static 'img/logo.png' %}">
+    <meta name="description" content="Art in Bar" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--Bootstrap 4-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <!--icons-->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!--vendors-->
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <link rel="stylesheet" href="{% static "/js/vendors/daterangepicker/daterangepicker.css" %}"/>
+    <!--custom css-->
+    <link rel="stylesheet" href="{% static "/css/components.css" %}"/>
+    <link rel="stylesheet" href="{% static "/css/colors.css" %}"/>
+    <link rel="stylesheet" href="{% static "/css/demo.css" %}"/>
+    <link rel="stylesheet" href="{% static "/css/style.css" %}"/>
+</head>
+
+<link rel="stylesheet" href="{% static "/css/chat.css" %}"/>
+
+<div class="chatWindow">
+    <div class="chatHeader bg-inverse">
+        <div class="contactName backArrow" onclick="location.href = '/chat'"><i class="fa fa-arrow-left" aria-hidden="true"></i></div> 
+        <div class="contactName">{{ contact.name }}</div>
+    </div>
+
+    <div class="chatContent">
+        <ul>
+            {% if messages %}
+                {% for message in messages %}
+                    {% include "message.html" %}
+                {% endfor %}
+            {% endif %}
+        </ul>
+    </div> 
+    <div class="chatSend">
+        <div>                        
+            <div style="background:whitesmoke !important">
+                <div class="input-group">
+                    <input class="form-control" type="text" id="text" name="text" placeholder="Mensaje" required autofocus>
+                    <span class="input-group-btn">
+                        <spam class="btn btn-primary" id="pay" type="submit" onclick="location.href = '/paypal/{{contact.id}}'">Pagar actuación<em style="margin-left: 5px;" class="fa fa-paypal"></em></spam>
+                        <spam class="btn btn-primary d-none" id="send" type="submit" value="Enviar"><em class="fa fa-paper-plane"></em></spam>
+                    </span>
+                </div>
+            </div> 
+        </div>               
+    </div>
+    
+</div>
+
+{% include "common/footer.html" %}
+<script src="{% static "/js/chat.js" %}"></script>
+<script>loadChat({{user.id}}, {{contact.id}}, '{{proto}}')</script>

@@ -1,0 +1,21 @@
+{% extends "common/masterpage.html" %}
+
+{% block title %}Contactos{% endblock %}
+{% block content %}
+
+<div class="colored-section bg-inverse">
+        <section class="container fullPage">
+            <br>
+            {% if contacts %}
+                {% for contact in contacts %}          
+                    {% include "contactCard.html" %}
+                {% endfor %}
+                                
+            {% else %}
+                <p>No hay contactos disponibles.</p>
+            {% endif %}
+
+    </section>
+</div>
+
+{% endblock %}

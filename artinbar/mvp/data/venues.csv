@@ -1,0 +1,6 @@
+##Venue:name,email,description,logo,geolocation,address,capactity,venuesId,username
+La SemiCorchea,la_semicorchea@qmail.com,Esta es la descripción del bar de música en directo La SemiCorchea,logos/logo201.jpg,37.38/-5.95,Calle Guatemala 35,200,201,LaSemiCorchea
+El Piano,el_piano@qmail.com,Esta es la descripción del bar de música en directo El Piano,logos/logo202.png,42.36/-71.09,Calle La Tecla 20,150,202,ElPiano
+La Carcajada,la_carcajada@qmail.com,Esta es la descripción del bar de espectáculos en directo La Carcajada,logos/logo203.jpg,51.13446889999999/1.3573028000000704,Calle Chorrada 23,60,203,LaCarcajada
+Comedia,comedia@qmail.com,Esta es la descripción del bar de espectáculos en directo Comedia,,35.65/139.74,Calle Comediante 11,70,204,Comedia
+La Chistera,la_chistera@qmail.com,Esta es la descripción del bar de espectáculos de mágia en directo La Chistera,logos/logo205.jpg,64.24950808302722/-15.207138061523438,Calle Varita 13,55,205,LaChistera
